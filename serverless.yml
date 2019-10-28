@@ -1,0 +1,20 @@
+service: test-serverless
+provider:
+  name: aws
+  runtime: nodejs10.17.0
+  memorySize: 1024
+  versionFunctions: false
+  timeout: 30
+
+functions:
+  users:
+    handler: '/api/routes/users.handler'
+    events:
+      - http:
+          path: '/users/{funcName}'
+          method: get
+      - http:
+          path: '/users/{funcName}'
+          method: post
+plugins:
+  - serverless-offline
