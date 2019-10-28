@@ -3,6 +3,8 @@ const { response } = require('../lib/utils');
 const {
   details
 } = require('../endpoints/users');
+require('dotenv').config();
+
 module.exports.handler = (event, context, callback) => {
   const funcName = event.pathParameters && event.pathParameters.funcName.toUpperCase();
   console.log(JSON.stringify({funcName}));
