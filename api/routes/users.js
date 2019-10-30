@@ -2,7 +2,9 @@
 const { response } = require('../lib/utils');
 const {
   details,
-  update
+  update,
+  create,
+  destroy,
 } = require('../endpoints/users');
 require('dotenv').config();
 
@@ -16,6 +18,12 @@ module.exports.handler = async (event, context, callback) => {
       return;
     case 'UPDATE':
       callback(null, response(200, await update(event)));
+      return;
+    case 'CREATE':
+      callback(null, response(200, await create(event)));
+      return;
+    case 'DELETE':
+      callback(null, response(200, await destroy(event)));
       return;
     default: {
       const results = {
