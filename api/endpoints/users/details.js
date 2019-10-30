@@ -14,5 +14,5 @@ module.exports.handler = async (event) => {
     data,
   };
 
-  return response
+  return response;
 };
