@@ -1,7 +1,8 @@
 'use strict';
 const { response } = require('../lib/utils');
 const {
-  details
+  details,
+  update
 } = require('../endpoints/users');
 require('dotenv').config();
 
@@ -11,8 +12,10 @@ module.exports.handler = async (event, context, callback) => {
 
   switch (funcName) {
     case 'DETAILS':
-      const results = await details(event);
-      callback(null, response(200, results));
+      callback(null, response(200, await details(event)));
+      return;
+    case 'UPDATE':
+      callback(null, response(200, await update(event)));
       return;
     default: {
       const results = {
