@@ -5,7 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     last_name: DataTypes.STRING,
     email: DataTypes.STRING,
     age: DataTypes.STRING,
-  }, {});
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE,
+  }, {
+    timestamps: false,
+  });
   User.associate = function(models) {
     // associations can be defined here
   };
