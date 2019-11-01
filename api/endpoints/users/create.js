@@ -4,20 +4,25 @@ const db = require('../../database/models');
 module.exports.handler = async (event) => {
   try {
     const params = JSON.parse(event.body);
-    const data = await db.User.create(params);
-    const response = {
-      status: data ? 'SUCCESS' : 'FAILED',
-      message: data ? 'Successfully fetched details' : 'Failed fetched details',
+    const data = await db.Users.create(params);
+    if(!data) {
+      return {
+        status: 'FAILED',
+        message: 'Failed creating user',
+        data,
+      }
+    }
+
+    return {
+      status: 'SUCCESS',
+      message: 'Successfully created user',
       data,
-    };
-    return response;
+    }
   } catch (error) {
-    console.log({error});
-    const response = {
+    return {
       status: 'ERROR',
-      message: 'Error creating user',
+      message: 'Error fetching details',
       data: error,
     };
-    return response;
   }
 };

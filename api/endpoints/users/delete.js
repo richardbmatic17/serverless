@@ -2,13 +2,26 @@
 const db = require('../../database/models');
 
 module.exports.handler = async (event) => {
-  const { id } = JSON.parse(event.body);
-  const data = await db.User.destroy({where: {id}});
-  const response = {
-    status: data ? 'SUCCESS' : 'FAILED',
-    message: data ? 'Successfully fetched details' : 'Failed fetched details',
-    data,
-  };
+  try {
+    const { id } = JSON.parse(event.body);
+    const data = await db.Users.destroy({where: {id}});
+    if(!data) {
+      return {
+        status: 'FAILED',
+        message: 'Failed deleting user, user id not found',
+      }
+    }
 
-  return response;
+    return {
+      status: 'SUCCESS',
+      message: `Successfully deleted user id ${id}`,
+      data: `deleted count ${data}`,
+    }
+  } catch (error) {
+    return {
+      status: 'ERROR',
+      message: 'Error fetching details',
+      data: error,
+    };
+  }
 };
