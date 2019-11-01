@@ -14,23 +14,23 @@ module.exports.handler = async (event, context, callback) => {
 
   switch (funcName) {
     case 'DETAILS':
-      callback(null, response(200, await details(event)));
+      callback(null, response(await details(event)));
       return;
     case 'UPDATE':
-      callback(null, response(200, await update(event)));
+      callback(null, response(await update(event)));
       return;
     case 'CREATE':
-      callback(null, response(200, await create(event)));
+      callback(null, response(await create(event)));
       return;
     case 'DELETE':
-      callback(null, response(200, await destroy(event)));
+      callback(null, response(await destroy(event)));
       return;
     default: {
       const results = {
         status: 'ERROR',
         message: `No route available for ${funcName.toLowerCase()}`,
       };
-      return callback(null, response(404, results));
+      return callback(null, response(results));
     }
   }
 };
